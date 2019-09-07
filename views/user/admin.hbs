@@ -1,0 +1,28 @@
+<div class="jumbotron">
+    <div class="container">
+    <h1 class="display-4">Admin Dashboard</h1>
+    </div>
+</div>
+
+{{# each user }}
+<div class="row">
+    {{# each this }}
+    <div class="container">
+    <div class="col-sm-6 col-md-4">
+<div class="clearfix">
+                    <h3 class="description">{{ this.name }}</h3>
+                    <br>
+                    <p class="description">{{ this.email }}</p>
+                    <br>
+                    <p class="description">{{ this.address }}</p>
+                    <br>
+
+                    <p class="description">{{ this.phone }}</p>
+                    <br>
+              </div>
+    </div>
+</div>
+
+    {{/each}}
+</div>
+{{/each}}
