@@ -1,27 +1,37 @@
 <div class="jumbotron">
-    <div class="container">
-    <h1 class="display-4">Admin Dashboard</h1>
+    <div class="container ">
+        <h2 align="center" class="display-4">Admin Dashboard</h2>
     </div>
+    <br>
+    {{!-- <form action="/user/search" method="GET" class="form-inline">
+        <div class="form-group">
+            <input type="text" name="search" for="search" placeholder=" Search..." class="form-control">
+            <input type="submit" value="Search" class="btn btn-default">
+        </div>
+    </form> --}}
 </div>
 
 {{# each user }}
 <div class="row">
     {{# each this }}
-    <div class="container">
-    <div class="col-sm-6 col-md-4">
-<div class="clearfix">
-                    <h3 class="description">{{ this.name }}</h3>
-                    <br>
-                    <p class="description">{{ this.email }}</p>
-                    <br>
-                    <p class="description">{{ this.address }}</p>
-                    <br>
-
-                    <p class="description">{{ this.phone }}</p>
-                    <br>
-              </div>
+    <div class="container drop-shadow">
+        <div class="col-sm-4 col-md-4">
+            
+                <h3 class="description"><span> {{ this.name }} </span></h3>
+                <br>
+                <p class="description"><span>{{ this.email }}</span></p>
+                <br>
+                <p class="description"><span>{{ this.address }}</span></p>
+                <br>
+                <p class="description"><span>{{ this.city }}</span></p>
+                <br>
+                <p class="description"><span>{{ this.country }}</span></p>
+                <br>
+                <p class="description">{{ this.phone }}</p>
+                <br>
+            
+        </div>
     </div>
-</div>
 
     {{/each}}
 </div>

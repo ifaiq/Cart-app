@@ -17,8 +17,11 @@ router.use(csrfProtection);
 
 
 router.get('/admin', isLoggedIn, isAdmin, function (req, res, next) {
-  var options = {cache: true , title: 'Express'};
-  User.find(function(err, docs) {
+  var options = {
+    cache: true,
+    title: 'Express'
+  };
+  User.find(function (err, docs) {
     var userChunks = [];
     var chunkSize = 4;
     for (var i = 0; i < docs.length; i += chunkSize) {
@@ -30,10 +33,41 @@ router.get('/admin', isLoggedIn, isAdmin, function (req, res, next) {
       name: req.user.name,
       email: req.user.email,
       phone: req.user.phone,
-      address: req.user.address
+      address: req.user.address,
+      city: req.user.city,
+      country: req.user.country
     });
   });
 });
+
+
+
+
+// router.get('/search', function (req, res, next) {
+//   var options = {
+//     cache: true,
+//     title: 'Express'
+//   };
+//   var email = req.query.search;
+//   User.findOne({email},function (err, user) {
+//     if (err) {
+//       res.json({
+//           status: 0,
+//           message: err
+//       });
+//   }
+//     res.render('user/admin', {
+//       // orders: orders,
+//       name: req.user.name,
+//       email: req.user.email,
+//       phone: req.user.phone,
+//       address: req.user.address,
+//       city: req.user.city,
+//       country: req.user.country
+//     });
+//   });
+// });
+
 
 
 router.get('/profile', isLoggedIn, function (req, res, next) {
@@ -140,6 +174,7 @@ function isAdmin(req, res, next) {
   if (req.user.admin === 1) {
     return next();
   }
+  req.flash('error', 'Not Admin')
   res.redirect('/');
 }
 
@@ -149,3 +184,7 @@ function notLoggedIn(req, res, next) {
   }
   res.redirect('/');
 }
+
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};

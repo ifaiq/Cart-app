@@ -1,6 +1,13 @@
+<div class="jumbotron col-md-4 col-md-offset-4">
+<div class="container drop-shadow ">
+    <h2 align="center" class="display-4">Create your Account</h2>
+    
+    </div></div>
+<div class="container drop-shadow">
 <div class="row">
+     <br>
     <div class="col-md-4 col-md-offset-4">
-        <h1>Sign Up</h1>
+        
         {{#if hasErrors}}
         <div class="alert alert-danger">
             {{# each messages }}
@@ -20,6 +27,15 @@
                 <input type="text" id="address" name="address" class="form-control">
             </div>
 
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" class="form-control">
+
+            </div>
+            <div class="form-group">
+                <label for="country">country</label>
+                <input type="text" id="country" name="Country" class="form-control">
+            </div>
             <div class="form-group">
                 <label for="phone">Phone #</label>
                 <input type="text" id="phone" name="phone" class="form-control">
@@ -41,4 +57,5 @@
             <button type="submit" class="btn btn-primary">Sign Up</button>
         </form>
     </div>
+</div>
 </div>

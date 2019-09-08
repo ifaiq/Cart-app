@@ -37,8 +37,6 @@ app.engine('.hbs', hbs({
 }));
 app.set('view engine', '.hbs');
 
-
-
 app.use(logger('dev'));
 
 app.use(bodyParser.json());
@@ -68,7 +66,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', function (req, res, next) {
+
+
+
+
   res.locals.login = req.isAuthenticated();
+  // res.locals.admin = req.user.admin;
   res.locals.session = req.session;
   next();
 });
