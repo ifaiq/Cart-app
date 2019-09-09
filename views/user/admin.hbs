@@ -2,13 +2,16 @@
     <div class="container ">
         <h2 align="center" class="display-4">Admin Dashboard</h2>
     </div>
-    <br>
-    {{!-- <form action="/user/search" method="GET" class="form-inline">
-        <div class="form-group">
-            <input type="text" name="search" for="search" placeholder=" Search..." class="form-control">
-            <input type="submit" value="Search" class="btn btn-default">
-        </div>
-    </form> --}}
+</div>
+<br>
+
+{{!-- <form action="/user/search" method="GET" class="form-inline">
+    <div class="form-group">
+        <input type="text" name="search" for="search" placeholder=" Search..." class="form-control">
+        <input type="submit" value="Search" class="btn btn-default">
+    </div>
+</form> --}}
+{{!--
 </div>
 
 {{# each user }}
@@ -16,23 +19,65 @@
     {{# each this }}
     <div class="container drop-shadow">
         <div class="col-sm-4 col-md-4">
-            
-                <h3 class="description"><span> {{ this.name }} </span></h3>
-                <br>
-                <p class="description"><span>{{ this.email }}</span></p>
-                <br>
-                <p class="description"><span>{{ this.address }}</span></p>
-                <br>
-                <p class="description"><span>{{ this.city }}</span></p>
-                <br>
-                <p class="description"><span>{{ this.country }}</span></p>
-                <br>
-                <p class="description">{{ this.phone }}</p>
-                <br>
-            
+
+            <h3 class="description"><span> {{ this.name }} </span></h3>
+            <br>
+            <p class="description"><span> {{ this.email }}</span></p>
+            <br>
+            <p class="description"><span> {{ this.address }}</span></p>
+            <br>
+            <p class="description"><span>{{ this.city }}</span></p>
+            <br>
+            <p class="description"><span>{{ this.country }}</span></p>
+            <br>
+            <p class="description">{{ this.phone }}</p>
+            <br>
+
         </div>
     </div>
 
     {{/each}}
 </div>
-{{/each}}
+{{/each}} --}}
+
+<div class="container drop-shadow">
+
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                {{!-- <th scope="col">id</th> --}}
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Address</th>
+                <th scope="col">Phone</th>
+                <th scope="col">City</th>
+                <th scope="col">Country</th>
+                {{!-- <th scope="col">Delete</th> --}}
+            </tr>
+        </thead>
+        {{# each user }}
+        <tbody>
+            {{# each this }}
+            <tr>
+
+
+
+                <td>{{ this.name }}</td>
+                <td>{{ this.email }}</td>
+                <td>{{ this.address }},{{this.post}}</td>
+                <td>{{ this.phone }}</td>
+                <td>{{ this.city }}</td>
+                <td>{{ this.country }}</td>
+                {{!-- <td>
+                    <form action='/user/delete/{{this.id}}' method="get"> <button type="submit" class="btn btn-primary"> Delete </button> 
+                    {{!-- <input type="hidden" name="_csrf" value="{{ csrfToken }}"> --}}
+
+                {{!-- </td>  --}}
+
+            </tr>
+            {{/each}}
+        </tbody>
+        {{/each}}
+    </table>
+</div>

@@ -22,6 +22,7 @@ passport.use('local.signup', new LocalStrategy({
 }, function (req, email, password , done) {
     req.checkBody('name', 'Provide Name').notEmpty();
     req.checkBody('address', 'Provide Address').notEmpty();
+    req.checkBody('post', 'Provide Postal Code').notEmpty();
     req.checkBody('phone', 'Provide Number').notEmpty();
     req.checkBody('city', 'Provide City').notEmpty();
     req.checkBody('country', 'Provide Country').notEmpty();
@@ -55,6 +56,7 @@ passport.use('local.signup', new LocalStrategy({
         newUser.address = req.body.address;
         newUser.phone = req.body.phone;
         newUser.country = req.body.country;
+        newUser.post= req.body.post;
         newUser.city = req.body.city;
         newUser.email = email;
         newUser.password = newUser.encryptPassword(password);

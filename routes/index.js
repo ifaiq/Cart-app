@@ -14,7 +14,7 @@ router.use(function (req, res, next) {
 });
 
 
-router.get('/', function(req, res, next) {
+router.get('/', isLoggedIn, function(req, res, next) {
   var successMsg = req.flash('success')[0];
   Product.find(function(err, docs) {
     var productChunks = [];
@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
 });
 });
 
-router.get('/add-to-cart/:id', function(req, res, next) {
+router.get('/add-to-cart/:id', isLoggedIn, function(req, res, next) {
   var productId = req.params.id;
   var cart = new Cart(req.session.cart ? req.session.cart : {});
 
@@ -42,7 +42,7 @@ router.get('/add-to-cart/:id', function(req, res, next) {
 });
 
 
-router.get('/reduce/:id', function(req, res, next) {
+router.get('/reduce/:id', isLoggedIn, function(req, res, next) {
     var productId = req.params.id;
     var cart = new Cart(req.session.cart ? req.session.cart : {});
 
@@ -51,7 +51,7 @@ router.get('/reduce/:id', function(req, res, next) {
     res.redirect('/shopping-cart');
 });
 
-router.get('/remove/:id', function(req, res, next) {
+router.get('/remove/:id', isLoggedIn, function(req, res, next) {
     var productId = req.params.id;
     var cart = new Cart(req.session.cart ? req.session.cart : {});
 
@@ -62,7 +62,7 @@ router.get('/remove/:id', function(req, res, next) {
 
 
 
-router.get('/shopping-cart', function(req, res, next) {
+router.get('/shopping-cart', isLoggedIn, function(req, res, next) {
  if (!req.session.cart) {
      return res.render('shop/shopping-cart', {products: null});
  } 

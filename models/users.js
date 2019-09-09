@@ -11,6 +11,10 @@ var userSchema = new Schema({
     type: String,
     required: true
   },
+  post: {
+    type: String,
+    required: true
+  },
   phone: {
     type: String,
     required: true

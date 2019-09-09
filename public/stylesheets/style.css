@@ -19,3 +19,13 @@
   padding-left:0;
   padding-right:0;
 }
+
+
+#wrapper {
+  width:450px; /* or whatever width you want. */
+   max-width:350px; /* or whatever width you want. */
+   display: inline-block;
+}
+.clearer {
+	clear: both;
+}
