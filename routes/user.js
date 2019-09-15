@@ -6,7 +6,7 @@ var User = require('../models/users');
 
 var Order = require('../models/orders');
 var Cart = require('../models/cart');
-
+var bodyParser = require('body-parser');
 var csrf = require('csurf');
 var csrfProtection = csrf();
 router.use(csrfProtection);
@@ -41,6 +41,11 @@ router.get('/admin', isLoggedIn, isAdmin, function (req, res, next) {
   });
 });
 
+
+
+
+
+
 router.get('/admin/api', isLoggedIn, isAdmin, function (req, res, next) {
   var options = {
     cache: true,
@@ -58,19 +63,18 @@ router.get('/admin/api', isLoggedIn, isAdmin, function (req, res, next) {
 
 
 
-router.get('/delete/:id', isLoggedIn, isAdmin, function (req, res, next) {
-      var productId = req.params.id;
-      User.findByIdAndRemove({
-        productId
-      }, (err, res) => {
+router.get('/admin/delete/:id', function (req, res, next) {
+      console.log(req.params.id);
+      User.findByIdAndRemove(req.params.id, (err, res) => {
         if (err) {
-          return console.log(res)
+          return console.log(err)
           
         }
 
 
-        res.redirect('/user/admin');
+        
       });
+      res.redirect('/user/admin');
     });
 
       // router.get('/search', function (req, res, next) {
@@ -218,3 +222,7 @@ router.get('/delete/:id', isLoggedIn, isAdmin, function (req, res, next) {
       function escapeRegex(text) {
         return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
       };
+
+      var parse =(bodyParser.urlencoded({
+        extended: false
+      }));

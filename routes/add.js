@@ -7,69 +7,25 @@ var Product = require('../models/pro');
 
 var mongoose = require('mongoose');
 
-// mongoose.connect('mongodb://admin:admin1@ds217208.mlab.com:17208/pdf', (err) => {
-//     if (!err) {
-//         console.log('No Error');
-//     } else {
-//         console.log('Error Occured')
-//     }
-// });
-
-// var products = [
-//     new Product({
-//         imagePath: 'https://images3.penguinrandomhouse.com/cover/9780399585050',
-//         title: 'Book',
-//         description: 'Awesome Book!!!!',
-//         price: 10
-//     }),
-//     new Product({
-//         imagePath: 'https://s26162.pcdn.co/wp-content/uploads/2019/01/9781616208882.jpg',
-//         title: 'Book',
-//         description: 'Also awesome? But of course it was better in vanilla ...',
-//         price: 20
-//     }),
-//     new Product({
-//         imagePath: 'https://e3t6q7b4.stackpathcdn.com/wp-content/uploads/2018/09/five-feet-apart-9781534437333_hr-679x1024.jpg',
-//         title: 'Book',
-//         description: 'Meh ... nah, it\'s okay I guess',
-//         price: 40
-//     }),
-//     new Product({
-//         imagePath: 'https://pmcdeadline2.files.wordpress.com/2014/02/minecraft__140227211000.jpg',
-//         title: 'Minecraft Video Game',
-//         description: 'Now that is super awesome!',
-//         price: 15
-//     }),
-//     new Product({
-//         imagePath: 'https://d1r7xvmnymv7kg.cloudfront.net/sites_products/darksouls3/assets/img/DARKSOUL_facebook_mini.jpg',
-//         title: 'Dark Souls 3 Video Game',
-//         description: 'I died!',
-//         price: 50
-//     })
-// ];
-
-// var done = 0;
-// for (var i = 0; i < products.length; i++) {
-//     products[i].save(function (err, result) {
-//         done++;
-//         if (done === products.length) {
-//             exit();
-//         }
-//     });
-// }
-
-// function exit() {
-//     mongoose.disconnect();
-// }
 
 
+router.get('/', isLoggedIn,isAdmin, function(req, res, next) {
+  var successMsg = req.flash('success')[0];
 
 
-router.get('/',  isLoggedIn, isAdmin, function (req, res, next) {
+  
 
-      res.render('shop/add');
+
+  Product.find(function(err, docs) {
+    var productChunks = [];
+    var chunkSize = 3;
+    for (var i = 0; i < docs.length; i += chunkSize) {
+        productChunks.push(docs.slice(i, i + chunkSize));
+    }
+    
+    res.render('shop/add', { title: 'Shopping Cart', products: productChunks, successMsg: successMsg, noMessages: !successMsg});
 });
-
+});
 
 router.post('/',isLoggedIn,isAdmin, function (req, res, next) {
     var myData = new Product();
@@ -91,12 +47,34 @@ router.post('/',isLoggedIn,isAdmin, function (req, res, next) {
   });
   
 
+  router.get('/add/delete/:id', function (req, res, next) {
+    console.log(req.params.id);
+    Product.findByIdAndRemove(req.params.id, (err, res) => {
+      if (err) {
+        return console.log(err)
+        
+      }
+
+
+      
+    });
+    res.redirect('/shop/add');
+  });
+
 module.exports = router;
 
 
 
 
-
+// function count(){
+  
+//   var noU = Product.countDocuments(function(err, docs) {
+//     if (err){
+//       console.log(err);
+//     }
+//     return doc.length;
+//       });
+// }
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {

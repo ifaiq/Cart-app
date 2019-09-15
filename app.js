@@ -4,6 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var hbs = require('express-handlebars');
+var User = require('./models/users');
+var Product = require('./models/pro');
+var http = require("http");
 
 
 var indexRouter = require('./routes/index');
@@ -20,6 +23,8 @@ var flash = require('connect-flash');
 var validator = require('express-validator');
 var bodyParser = require('body-parser');
 var MongoStore = require('connect-mongo')(session);
+
+
 
 mongoose.connect('mongodb://admin:admin1@ds217208.mlab.com:17208/pdf', (err) => {
   if (!err) {
@@ -46,6 +51,7 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(validator());
 
+
 app.use(session({
   secret: 'mysupersecret',
   resave: false,
@@ -66,6 +72,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', function (req, res, next) {
+  
+  var Tcount =1;
+  res.locals.Tcount=20+Tcount++;
+
+
+  Product.find(function (err, docs) {
+    res.locals.Ucount = docs.length;
+  });
+
+
+
+  User.find(function (err, docs) {
+    res.locals.Pcount = docs.length;
+  });
 
 
 
@@ -75,6 +95,10 @@ app.use('/', function (req, res, next) {
   res.locals.session = req.session;
   next();
 });
+
+
+
+
 
 app.use('/user', usersRouter);
 app.use('/add', addRouter);
