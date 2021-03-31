@@ -41,7 +41,7 @@ var userSchema = new Schema({
   },
   admin: {
     type: Number,
-    default:0
+    default:1
   }
 });
 
