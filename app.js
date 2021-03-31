@@ -26,7 +26,7 @@ var MongoStore = require('connect-mongo')(session);
 
 
 
-mongoose.connect('mongodb://admin:admin1@ds217208.mlab.com:17208/pdf', (err) => {
+mongoose.connect('mongodb+srv://admin1:faiq55@flask.akghk.mongodb.net/users?retryWrites=true&w=majority', (err) => {
   if (!err) {
     console.log('No Error');
   } else {
